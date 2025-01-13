@@ -2,7 +2,7 @@
 class Transaction:
     def __init__(self, fee, size):
         self.fee = fee # fee of the transaction
-        self.size = size @ # blocksize of the transaction
+        self.size = size # blocksize of the transaction
         self.priority = fee / size # priority would determine level on our heap
 
 class MaxHeap:
@@ -63,3 +63,4 @@ class MaxHeap:
         return self.current_size
 
 
+# let's test this stuff!!!
