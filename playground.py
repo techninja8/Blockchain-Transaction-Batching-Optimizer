@@ -14,7 +14,10 @@ class MaxHeap:
     def _heapify_up(self, i):
         parent = (i - 1) // 2 # calculating parent index
         if i > 0 and self.heap[i][0] > self.heap[parent][0]: # as long as the node is not the root and the priority is larger than parent 
-            self.heap[parent], self.heap[i] = self.heap[i], self.heap[parent]
+            temp = self.heap[parent]
+            self.heap[i] = self.heap[parent]
+            self.heap[parent] = temp 
+            
             self._heapify_up(parent) # heapify the parent node
 
     def _heapify_down(self, i):
@@ -64,6 +67,13 @@ class MaxHeap:
     
     def see_current_size(self):
         return self.current_size
+
+    def see_batching_pool(self):
+        for i in self.heap:
+            print(i)
+
+    def show_priority(self, i):
+        return self.heap[i][0]
 
 
 # let's test this stuff!!!
