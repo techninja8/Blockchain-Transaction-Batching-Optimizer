@@ -4,14 +4,22 @@ class Transaction:
         self.fee = fee # fee of the transaction
         self.size = size # blocksize of the transaction
         self.priority = size / fee # priority would determine level on our heap
+    
+    def __repr__(self):
+        return f"Transaction(fee={self.fee}, size={self.size})"
 
+    def show_priority(self):
+        return self.priority
+        
+
+# MaxHeap Represents The Transaction Pool
 class MaxHeap:
     def __init__(self):
         self.heap = [] # our heap is represented by an array of transactions 
         self.current_size = 0 # shows how many transactions are current in our heap 
     
     def __repr__(self):
-        return f"Transaction(fee=(self.fee), size=(self.size))"
+        return f"Transaction Pool({self.heap}\nTotal Transactions Added{self.current_size}"
 
     # i is the index of the added node :)
     def _heapify_up(self, i):
@@ -39,8 +47,6 @@ class MaxHeap:
            self.heap[i] = self.heap[largest]
            self.heap[largest] = temp 
            self._heapify_down(largest)
-           
-
 
     def insert(self, transaction):
         self.heap.append((transaction.priority, transaction.fee, transaction.size)) # add new transaction to the last empty node space
@@ -67,16 +73,6 @@ class MaxHeap:
         self._heapify_down(0) # yes, it's correct, we're heapifying the mew root which is the previous last value basically 
 
         return max_transaction
-    
-    def see_current_size(self):
-        return self.current_size
-
-    def see_batching_pool(self):
-        for i in self.heap:
-            print(i)
-
-    def show_priority(self, i):
-        return self.heap[i][0]
 
 
 # let's test this stuff!!!
