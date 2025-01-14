@@ -3,7 +3,7 @@ class Transaction:
     def __init__(self, fee, size):
         self.fee = fee # fee of the transaction
         self.size = size # blocksize of the transaction
-        self.priority = size / fee # priority would determine level on our heap
+        self.priority = self.fee / self.size # priority would determine level on our heap
     
     def __repr__(self):
         return f"Transaction(fee={self.fee}, size={self.size})"
@@ -26,8 +26,8 @@ class MaxHeap:
         parent = (i - 1) // 2 # calculating parent index
         if i > 0 and self.heap[i][0] > self.heap[parent][0]: # as long as the node is not the root and the priority is larger than parent 
             temp = self.heap[parent]
-            self.heap[i] = self.heap[parent]
-            self.heap[parent] = temp 
+            self.heap[parent] = self.heap[i]
+            self.heap[i] = temp 
             
             self._heapify_up(parent) # heapify the parent node
 
@@ -64,6 +64,11 @@ class MaxHeap:
             return self.heap.pop()
         
         # get root, which is the max_transaction, replace with last node and _heapify_dow
+        # max_transaction = self.heap[0]
+        
+        self._heapify_down(0)
+        self._heapify_up(0)
+
         max_transaction = self.heap[0]
         self.heap[0] = self.heap[-1]
         self.heap.pop()
@@ -71,6 +76,7 @@ class MaxHeap:
         self.current_size = self.current_size - 1
 
         self._heapify_down(0) # yes, it's correct, we're heapifying the mew root which is the previous last value basically 
+
 
         return max_transaction
 
