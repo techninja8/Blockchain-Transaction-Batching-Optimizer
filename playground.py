@@ -6,7 +6,7 @@ class Transaction:
         self.priority = self.fee / self.size # priority would determine level on our heap
     
     def __repr__(self):
-        return f"Transaction(fee={self.fee}, size={self.size})"
+        return f"Transaction(priority={self.size}, fee={self.fee}, size={self.size})"
 
     def show_priority(self):
         return self.priority
