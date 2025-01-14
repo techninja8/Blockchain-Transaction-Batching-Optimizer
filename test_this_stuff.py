@@ -4,12 +4,13 @@ from playground import Transaction, MaxHeap
 transaction_pool = MaxHeap()
 
 # let's create a bucnh of simple transactions 
-t1 = Transaction(fee=50, size=1000)
+t1 = Transaction(fee=1000, size=10)
 t2 = Transaction(fee=100, size=1000)
 t3 = Transaction(fee=70, size=500)
 t4 = Transaction(fee=100, size=1000)
 t5 = Transaction(fee=1000, size=500)
 
+print(t1)
 # insert this transactions into the Transaction Pool 
 transaction_pool.insert(t1)
 transaction_pool.insert(t2)

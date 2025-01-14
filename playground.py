@@ -3,12 +3,15 @@ class Transaction:
     def __init__(self, fee, size):
         self.fee = fee # fee of the transaction
         self.size = size # blocksize of the transaction
-        self.priority = fee / size # priority would determine level on our heap
+        self.priority = size / fee # priority would determine level on our heap
 
 class MaxHeap:
     def __init__(self):
         self.heap = [] # our heap is represented by an array of transactions 
         self.current_size = 0 # shows how many transactions are current in our heap 
+    
+    def __repr__(self):
+        return f"Transaction(fee=(self.fee), size=(self.size))"
 
     # i is the index of the added node :)
     def _heapify_up(self, i):
