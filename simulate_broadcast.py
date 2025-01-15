@@ -10,32 +10,21 @@ def broadcast(arrival_rate, total_duration): # mathematically arrival_rate is la
             fee = np.random.uniform(10, 100) # taking fee from a uniform distrubition between 10 and 100
             size = np.random.uniform(100, 1000) # taking size from a uniform distrubition between 100 and 1000
             transaction.append(Transaction(fee, size)) 
-
     return transaction
 
-arrival_rate = 5
+arrival_rate = 10
 
-duration = 1
+duration = 2
 
+transactions_broadcast = broadcast(arrival_rate, duration) # create new transactions based on Poisson distrubition
 
-
-transactions_broadcast = broadcast(arrival_rate, duration)
-
-transaction_pool = MaxHeap()
+transaction_pool = MaxHeap() # create a Transaction Pool, which is basically a max heap 
 
 for i in transactions_broadcast:
-    print(i)
-    transaction_pool.insert(i)
+    print(i) # sepearate transactions and print them out
+    transaction_pool.insert(i) # input the individual transactions into the transaction pool 
 
-latest_transaction = transaction_pool.extract_next_transaction()
+latest_transaction = transaction_pool.extract_next_transaction() # get the most optimal transaction from the transaction pool 
 
-print("\n Max Transaction Extracted ", latest_transaction)
-
-# transaction_pool = MaxHeap()
-
-# transaction_pool.insert(transaction_pool)
-
-# latest_transaction = transaction_pool.extract_next_transaction()
-
-# print(latest_transaction)
+print("Max Transaction Extracted ", latest_transaction) # print out the most optimal transaction 
 
