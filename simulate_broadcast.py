@@ -17,16 +17,25 @@ arrival_rate = 5
 
 duration = 1
 
-t1 = Transaction(10, 100)
 
 
 transactions_broadcast = broadcast(arrival_rate, duration)
 
 transaction_pool = MaxHeap()
 
-transaction_pool.insert(transaction_pool)
+for i in transactions_broadcast:
+    print(i)
+    transaction_pool.insert(i)
 
 latest_transaction = transaction_pool.extract_next_transaction()
 
-print(latest_transaction)
+print("\n Max Transaction Extracted ", latest_transaction)
+
+# transaction_pool = MaxHeap()
+
+# transaction_pool.insert(transaction_pool)
+
+# latest_transaction = transaction_pool.extract_next_transaction()
+
+# print(latest_transaction)
 

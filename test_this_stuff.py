@@ -12,11 +12,6 @@ t5 = Transaction(fee=1000, size=500)
 t6 = Transaction(fee=100000, size=10) # dummy test
 t7 = Transaction(fee=100000, size=1)
 
-print("Information of Transaction 1: ", t1, "\n") # should return string-based info of transaction 
-
-print("Priority of Transaction is 1: ", t1.show_priority(), "\n")
-
-print(transaction_pool)
 
 # insert this transactions into the Transaction Pool 
 transaction_pool.insert(t1)
@@ -32,20 +27,7 @@ print(transaction_pool)
 block_simulation = []
 # let's get the root Transaction which is the next transaction to be added to block
 new_addition_to_block = transaction_pool.extract_next_transaction()
-print("Max Transaction Extracted: ", new_addition_to_block, "\n")
 
-block_simulation.append(new_addition_to_block)
-
-new_addition_to_block = transaction_pool.extract_next_transaction()
-print("Max Transaction Extracted: ", new_addition_to_block, "\n")
-
-block_simulation.append(new_addition_to_block)
-
-new_addition_to_block = transaction_pool.extract_next_transaction()
-print("Max Transaction Extracted: ", new_addition_to_block, "\n")
-block_simulation.append(new_addition_to_block)
-
-
-print("Processing Block Update: ", block_simulation, "\n")
+print(new_addition_to_block)
 
 
