@@ -19,17 +19,27 @@ def parallel_execution(transaction_pool, transactions_broadcast):
     with ThreadPoolExecutor() as executor:
         list(executor.map(transaction_pool.insert, transactions_broadcast))
 
-def prune_transactions():
-    pass 
+def prune_transactions(transaction_pool, threshold):
+    # our aim here is to remove the transactions with low priority
+    filtered_transactions = [
+        txn for txn in transaction_pool.heap 
+        if txn[0] >= threshold
+    ]
+
+    transaction_pool.heap = filtered_transactions
+    for i in range(len(transaction_pool.heap)):
+        transaction_pool._heapify_down(i)
+    
 
 
 arrival_rate = 10
-
 duration = int(input("Duration Period: "))
+threshold = 0.05
 
 transactions_broadcast = broadcast(arrival_rate, duration) # create new transactions based on Poisson distrubition
 transaction_pool = MaxHeap() # create a Transaction Pool, which is basically a max heap 
 
+prune_transactions(transaction_pool, threshold)
 parallel_execution(transaction_pool, transactions_broadcast)
 
 print(f"Total Transactiosns Inserted: {len(transaction_pool.heap)}")
