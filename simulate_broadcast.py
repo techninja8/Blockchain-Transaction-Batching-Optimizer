@@ -19,7 +19,7 @@ def parallel_execution(transaction_pool, transactions_broadcast):
     lock = Lock()
 
     def safe_insert(transaction):
-        with lock:
+        with lock: # basiaclly one transaction should be able to modify the heap at a time 
             transaction_pool.insert(transaction)
     with ThreadPoolExecutor() as executor:
         list(executor.map(safe_insert, transactions_broadcast))
