@@ -1,7 +1,7 @@
 import numpy as np
 from playground import Transaction, MaxHeap
 from concurrent.futures import ThreadPoolExecutor
-
+from threading import Lock
 
 def broadcast(arrival_rate, total_duration): # mathematically arrival_rate is lambda and total_duration is T 
     transaction = [] # list of transactions per time unit
@@ -16,8 +16,13 @@ def broadcast(arrival_rate, total_duration): # mathematically arrival_rate is la
 
 
 def parallel_execution(transaction_pool, transactions_broadcast):
+    lock = Lock()
+
+    def safe_insert(transaction):
+        with lock:
+            transaction_pool.insert(transaction)
     with ThreadPoolExecutor() as executor:
-        list(executor.map(transaction_pool.insert, transactions_broadcast))
+        list(executor.map(safe_insert, transactions_broadcast))
 
 def prune_transactions(transaction_pool, threshold):
     # our aim here is to remove the transactions with low priority
@@ -34,7 +39,7 @@ def prune_transactions(transaction_pool, threshold):
 
 arrival_rate = 10
 duration = int(input("Duration Period: "))
-threshold = 0.05
+threshold = 0.1
 
 transactions_broadcast = broadcast(arrival_rate, duration) # create new transactions based on Poisson distrubition
 transaction_pool = MaxHeap() # create a Transaction Pool, which is basically a max heap 
